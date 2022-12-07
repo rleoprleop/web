@@ -49,5 +49,8 @@ export function drawMap() {
             .attr('id',function(d){
                 return d.properties.CTP_KOR_NM;
             })
+            .on('click',function(){
+                console.log($(this).attr('id'));
+            })
     });
 }
