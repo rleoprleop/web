@@ -33,8 +33,13 @@ class Weather {
   sToday() {
     let date=new Date();
     let year = date.getFullYear();
-    let month = ("0" + (1 + date.getMonth())).slice(-2);
+    let hour = date.getHours() - 1;
     let day = ("0" + date.getDate()).slice(-2);
+    let month = ("0" + (1 + date.getMonth())).slice(-2);
+    if (hour < 0) {
+      hour = 23
+      day=("0" + (day-1)).slice(-2);
+    }
 
     return String(year) + String(month) + String(day);
   }
@@ -66,7 +71,13 @@ class Weather {
 }
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/login', function (req, res, next) {
+  res.render('login', { title: 'Express' });
+});
+
+
+router.post('/', function (req, res, next) {
+  console.log(req.body);
   var dataBuffer = fs.readFileSync('public/json/data.json')
   const dataJson = dataBuffer.toString()
   var wt = new Weather("서울특별시", "", "", 1)
@@ -87,8 +98,7 @@ router.get('/', function (req, res, next) {
     var data = JSON.parse(body)
     console.log(data.response);
   })
-
-  res.render('login', { title: 'Express' });
+  res.send('index', { title: req.body.section1 });
 });
 
 module.exports = router;
