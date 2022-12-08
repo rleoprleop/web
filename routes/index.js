@@ -72,15 +72,17 @@ class Weather {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  console.log(req.body);
   res.render('index', { title: 'Express' });
 });
 
 
-router.post('/', function (req, res, next) {
-  console.log(req.body);
+router.post('/c', function (req, res, next) {
+  var local=req.body.section1
+  console.log(local);
   var dataBuffer = fs.readFileSync('public/json/data.json')
   const dataJson = dataBuffer.toString()
-  var wt = new Weather("서울특별시", "", "", 1)
+  var wt = new Weather(local, "", "", 1)
 
   let key=wt.key;
   let today=wt.sToday();
@@ -90,15 +92,15 @@ router.post('/', function (req, res, next) {
   var y = posdata.sectionY
   var url = wt.sUrl(key,today,time,x,y,1)
   console.log(url);
-  const request=require('request');
+  /*const request=require('request');
   const options = {
     uri: url,
   };
   request(options, function (err, response, body) {
     var data = JSON.parse(body)
     console.log(data.response);
-  })
-  res.send('index', { title: req.body.section1 });
+  })*/
+  res.render('index', { title: local });
 });
 
 module.exports = router;
