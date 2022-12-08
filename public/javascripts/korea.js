@@ -46,8 +46,23 @@ export function drawMap() {
                 console.log(d);
                 return path(d);
             })
-            .attr('id',function(d){
+            .attr('name', function (d) {
                 return d.properties.CTP_KOR_NM;
             })
-    });
+            .on('click', function () {
+                var id = $(this).attr('name')
+                console.log(id);
+                //$.post('/c', { section1: id })  // 서버가 필요한 정보를 같이 보냄
+                var form = document.createElement("form");
+                form.setAttribute("method", "post");  //Post 방식
+                form.setAttribute("action", "/c"); //요청 보낼 주소
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "text");
+                hiddenField.setAttribute("name", "section1");
+                hiddenField.setAttribute("value", id);
+                form.appendChild(hiddenField);
+                document.body.appendChild(form);
+                form.submit();
+            })
+});
 }
