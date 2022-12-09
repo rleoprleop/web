@@ -77,7 +77,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.post('/c', function (req, res, next) {
+router.post('/map', function (req, res, next) {
   var local=req.body.section1
   console.log(local);
   var dataBuffer = fs.readFileSync('public/json/data.json')
