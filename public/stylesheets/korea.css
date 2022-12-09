@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+#container {
+	width: 500px;
+	min-height: 500px;
+	float: left;
+	margin: 15px 35px;
+}
+#local_weather {
+    background-color: #444444;
+    border-radius: 5px;
+    color: #ffffff;
+    display: none;
+    position: absolute;
+}
+
+.map-layer path {
+	fill: #FFFFFF;
+	stroke: #000000;
+	stroke-width: 1.5px;
+}
+
+.map-layer path:hover {
+	fill: #009300;
+}
+
+.map-layer .active {
+	fill: #00B700;
+}
+
+.map-layer .activeDetail {
+	fill: #00B700;
+}
+
+.map-layer path {
+	cursor: pointer;
+}
+
+.map-layer text {
+	cursor: pointer;
+	font-size: 12px;
+	fill: #fff;
+}

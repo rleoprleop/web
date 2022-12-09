@@ -1,7 +1,7 @@
 //지도 그리기
 export function drawMap() {
-    const width = 700;
-    const height = 700;
+    const width = 500;
+    const height = 500;
     // 지도를 그리기 위한 svg 생성
     const svg = d3
         // .select('.d3')
@@ -55,7 +55,7 @@ export function drawMap() {
                 //$.post('/c', { section1: id })  // 서버가 필요한 정보를 같이 보냄
                 var form = document.createElement("form");
                 form.setAttribute("method", "post");  //Post 방식
-                form.setAttribute("action", "/c"); //요청 보낼 주소
+                form.setAttribute("action", "/map"); //요청 보낼 주소
                 var hiddenField = document.createElement("input");
                 hiddenField.setAttribute("type", "text");
                 hiddenField.setAttribute("name", "section1");
@@ -64,5 +64,25 @@ export function drawMap() {
                 document.body.appendChild(form);
                 form.submit();
             })
-});
+            .on('mouseover', function () {
+                var id = $(this).attr('name')
+                console.log(id);
+                var local = document.getElementById("local_weather")
+                local.style.display = 'block'
+                local.innerText = id
+                
+            })
+            .on('mouseout', function () {
+                document.getElementById("local_weather").style.display = 'none'
+            })
+            .on('mousemove',(e)=>{
+                var local = document.getElementById("local_weather")
+                var mousexy=d3.pointer(e)
+                var mousex= mousexy[0]
+                var mousey = mousexy[1]
+                local.style.left = mousex+50 + 'px'
+                local.style.top = mousey+150 + 'px'
+                console.log(mousexy);
+            })
+    });
 }

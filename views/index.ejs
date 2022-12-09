@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <meta charset="UTF-8">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script defer type="module" src="javascripts/main.js"></script>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <div id="container"></div>
-  </body>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <meta charset="UTF-8">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/korea.css' />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer type="module" src="javascripts/main.js"></script>
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+  <p>Welcome to <%= title %>
+  </p>
+  <div id="container"></div>
+  <div id="local_weather"></div>
+</body>
+
 </html>
