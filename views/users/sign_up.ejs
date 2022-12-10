@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
 <body>
 
-<h3>로그인</h3>
-<form action="/" method="post">
+<h3>회원가입</h3>
+<form action="/users/sign_up" method="post">
     <table>
         <tr>
-            <td>이메일 : </td>
-            <td><input type="text" name="userEmail"></td>
+            <td>이름 : </td>
+            <td><input type="text" name="userName"></td>
         </tr>
         <tr>
-            <td>비번 : </td>
+            <td>아이디 : </td>
+            <td><input type="text" name="userId"></td>
+        </tr>
+        <tr>
+            <td>비밀번호 : </td>
             <td><input type="password" name="password"></td>
         </tr>
         <tr>
@@ -23,13 +27,6 @@
             <td><input type="text" name="section2"></td>
             <td><input type="text" name="section3"></td>
         </tr>
-        <tr>
-            <td><input type="submit" value="로그인"></td>
-        </tr>
-    </table>
-</form>
-<form action="/sign_in" method="post">
-    <table>
         <tr>
             <td><input type="submit" value="회원가입"></td>
         </tr>
