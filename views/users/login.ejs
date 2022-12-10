@@ -6,23 +6,24 @@
 </head>
 <body>
 
-<h3>회원가입</h3>
-<form action="/login" method="post">
+<h3>로그인</h3>
+<form action="users/login" method="post">
     <table>
         <tr>
-            <td>이메일 : </td>
-            <td><input type="text" name="userEmail"></td>
+            <td>아이디 : </td>
+            <td><input type="text" name="userId"></td>
         </tr>
         <tr>
             <td>비번 : </td>
             <td><input type="password" name="password"></td>
         </tr>
         <tr>
-            <td>주소 : </td>
-            <td><input type="text" name="section1"></td>
-            <td><input type="text" name="section2"></td>
-            <td><input type="text" name="section3"></td>
+            <td><input type="submit" value="로그인"></td>
         </tr>
+    </table>
+</form>
+<form action="users/sign_up" method="get">
+    <table>
         <tr>
             <td><input type="submit" value="회원가입"></td>
         </tr>
