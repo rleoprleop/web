@@ -37,22 +37,16 @@
     <div class="weather_now_box">
       <div>
         <% if (dataing[0].obsrValue==0) { %>
-          <img src="" alt="맑음" width="50" height="50">
-          <% } else if (dataing[0].obsrValue==1) { %>
-            <img src="" alt="비" width="50" height="50">
-            <% } else if (dataing[0].obsrValue==2) { %>
-              <img src="" alt="비/눈" width="50" height="50">
-              <% } else if (dataing[0].obsrValue==3) { %>
-                <img src="" alt="눈" width="50" height="50">
-                <% } else if (dataing[0].obsrValue==5) { %>
-                  <img src="" alt="빗방울" width="50" height="50">
-                  <% } else if (dataing[0].obsrValue==6) { %>
-                    <img src="" alt="빗방울,눈날림" width="50" height="50">
-                    <% } else if (dataing[0].obsrValue==7) { %>
-                      <img src="" alt="눈날림" width="50" height="50">
-                      <% } else { %>
-                        <span>api받기 실패</span>
-                        <% } %>
+          <img src="/public/images/sunny.png" alt="맑음" width="50" height="50">
+          <% } else if (dataing[0].obsrValue==1 || dataing[0].obsrValue==5) { %>
+            <img src="/public/images/rain.png" alt="비" width="50" height="50">
+            <% } else if (dataing[0].obsrValue==2 || dataing[0].obsrValue==6) { %>
+              <img src="/public/images/rain_snow.png" alt="비/눈" width="50" height="50">
+              <% } else if (dataing[0].obsrValue==3 || dataing[0].obsrValue==7) { %>
+                <img src="/public/images/snow.png" alt="눈" width="50" height="50">
+                <% } else { %>
+                  <span>api받기 실패</span>
+                  <% } %>
 
       </div>
       <span>
@@ -75,43 +69,38 @@
       <div class="weather_today_box">
         <% if (data[i][0].fcstValue==0) { %>
           <% if (data[i][1].fcstValue==1) { %>
-            <img src="" alt="맑음" width="50" height="50">
-          <% } else if (data[i][1].fcstValue==3) { %>
-            <img src="" alt="구름 많음" width="50" height="50">
-          <% } else if (data[i][1].fcstValue==4) { %>
-            <img src="" alt="흐림" width="50" height="50">
-          <% } else { %>
-            <span>api받기 실패</span>
-          <% } %>
-        <% } else if (data[i][0].fcstValue==1) { %>
-          <img src="" alt="비" width="50" height="50">
-        <% } else if (data[i][0].fcstValue==2) { %>
-          <img src="" alt="비/눈" width="50" height="50">
-        <% } else if (data[i][0].fcstValue==3) { %>
-          <img src="" alt="눈" width="50" height="50">
-        <% } else if (data[i][0].fcstValue==5) { %>
-          <img src="" alt="빗방울" width="50" height="50">
-        <% } else if (data[i][0].fcstValue==6) { %>
-          <img src="" alt="빗방울,눈날림" width="50" height="50">
-        <% } else if (data[i][0].fcstValue==7) { %>
-          <img src="" alt="눈날림" width="50" height="50">
-        <% } else { %>
-          <span>api받기 실패</span>
-        <% } %>
-        <span>
-          <%= data[i][2].fcstValue %>°
-        </span>
-        <span>
-          <%= data[i][0].fcstTime %>
-        </span>
+            <img src="/public/images/sunny.png" alt="맑음" width="50" height="50">
+            <% } else if (data[i][1].fcstValue==3) { %>
+              <img src="/public/images/cloud.png" alt="구름 많음" width="50" height="50">
+              <% } else if (data[i][1].fcstValue==4) { %>
+                <img src="/public/images/clouds.png" alt="흐림" width="50" height="50">
+                <% } else { %>
+                  <span>api받기 실패</span>
+                  <% } %>
+                    <% } else if (data[i][0].fcstValue==1 || data[i][0].fcstValue==5) { %>
+                      <img src="/public/images/rain.png" alt="비" width="50" height="50">
+                      <% } else if (data[i][0].fcstValue==2 || data[i][0].fcstValue==6) { %>
+                        <img src="/public/images/rain_snow.png" alt="비/눈" width="50" height="50">
+                        <% } else if (data[i][0].fcstValue==3 || data[i][0].fcstValue==7) { %>
+                          <img src="/public/images/snow.png" alt="눈" width="50" height="50">
+                          <% } else { %>
+                            <span>api받기 실패</span>
+                            <% } %>
+                              <span>
+                                <%= data[i][2].fcstValue %>°
+                              </span>
+                              <span>
+                                <%= data[i][0].fcstTime %>
+                              </span>
       </div>
       <% } %>
   </div>
 </body>
 <footer>
   <strong>활용 API</strong>
-  <span>단기예보 조회서비스(2.0)</span>
-  <span>초단기실황조회, 초단기예보조회</span>
+  <div>단기예보 조회서비스(2.0)</div>
+  <div>초단기실황조회, 초단기예보조회</div>
+  <div>이미지 다운로드</div>
+  <a href="https://www.flaticon.com/kr/free-icons/" title="아이콘">아이콘 제작자: Freepik - Flaticon</a>
 </footer>
-
 </html>
