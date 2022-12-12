@@ -12,12 +12,14 @@ router.get('/sign_up', function (req, res, next) {
 
 router.post("/sign_up", async function (req, res, next) {
   let body = req.body;
-  if(!body.section1){
-    body.section1="서울특별시"
-  }
-  if(!body.userId || !body.userName || !body.password){
+  if (!body.userId || !body.userName || !body.password) {
     return res.redirect('/sign_up_err')
   }
+
+  if (!body.section1) {
+    body.section1 = "서울특별시"
+  }
+
   let inputPassword = body.password;
   let salt = Math.round((new Date().valueOf() * Math.random())) + "";
   let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
@@ -28,14 +30,14 @@ router.post("/sign_up", async function (req, res, next) {
     password: hashPassword,
     salt: salt
   }).catch(err => {
-      console.log(err)
-    })
+    console.log(err)
+  })
   await models.local.create({
     user_id: body.userId,
     section1: body.section1,
     section2: body.section2,
     section3: body.section3,
-  }).catch(err=>{
+  }).catch(err => {
     console.log(err)
   })
 
@@ -49,32 +51,38 @@ router.get('/login', function (req, res, next) {
 router.post("/login", async function (req, res, next) {
   let body = req.body;
 
-    let result = await models.user.findOne({
-        where: {
-            user_id : body.userId
-        }
+  let result = await models.user.findOne({
+    where: {
+      user_id: body.userId
+    }
+  });
+  console.log(result);
+
+  if (result == null) {
+    console.log("정보 없음");
+    return res.redirect("/");
+  }
+
+  let dbPassword = result.dataValues.password;
+  let inputPassword = body.password;
+  let salt = result.dataValues.salt;
+  let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
+
+  console.log(hashPassword);
+  if (dbPassword === hashPassword) {
+    console.log("비밀번호 일치");
+    let local = await models.local.findOne({
+      where: {
+        user_id: body.userId
+      }
     });
-    console.log(result);
 
-    if(result==null){
-      console.log("정보 없음");
-      return res.redirect("/");
-    }
-    
-    let dbPassword = result.dataValues.password;
-    let inputPassword = body.password;
-    let salt = result.dataValues.salt;
-    let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
-
-    console.log(hashPassword);
-    if(dbPassword === hashPassword){
-        console.log("비밀번호 일치");
-        return res.redirect("/map");
-    }
-    else{
-        console.log("비밀번호 불일치");
-        return res.redirect("/");
-    }
+    return res.redirect("/map/?section1="+local.dataValues.section1+"&section2="+local.dataValues.section2+"&section3="+local.dataValues.section3);
+  }
+  else {
+    console.log("비밀번호 불일치");
+    return res.redirect("/");
+  }
 })
 
 module.exports = router;

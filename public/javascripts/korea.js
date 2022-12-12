@@ -21,7 +21,7 @@ export function drawMap() {
         .center([0, 0])
         .translate([0, 0])
 
-    d3.json('json/features.geojson').then(function (geojs) {
+    d3.json('/public/json/features.geojson').then(function (geojs) {
         // svg 그림의 크기에 따라 출력될 지도의 크기를 다시 계산
         const path = d3.geoPath(projection);
         const pathbounds = path.bounds(geojs);
