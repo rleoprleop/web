@@ -43,7 +43,6 @@ export function drawMap() {
             .enter()
             .append('path')
             .attr('d', function (d) {
-                console.log(d);
                 return path(d);
             })
             .attr('name', function (d) {
@@ -52,6 +51,9 @@ export function drawMap() {
             .on('click', function () {
                 var id = $(this).attr('name')
                 console.log(id);
+                var local = document.getElementById("local_weather")
+                local.style.display = 'block'
+                local.innerText = id
                 //$.post('/c', { section1: id })  // 서버가 필요한 정보를 같이 보냄
                 var form = document.createElement("form");
                 form.setAttribute("method", "post");  //Post 방식
@@ -63,6 +65,7 @@ export function drawMap() {
                 form.appendChild(hiddenField);
                 document.body.appendChild(form);
                 form.submit();
+                document.body.removeChild(form);
             })
             .on('mouseover', function () {
                 var id = $(this).attr('name')
@@ -81,7 +84,7 @@ export function drawMap() {
                 var mousex= mousexy[0]
                 var mousey = mousexy[1]
                 local.style.left = mousex+50 + 'px'
-                local.style.top = mousey+150 + 'px'
+                local.style.top = mousey+130 + 'px'
                 console.log(mousexy);
             })
     });

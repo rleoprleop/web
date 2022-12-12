@@ -1,4 +1,24 @@
 @charset "UTF-8";
+@font-face {
+	font-family: "Jua-Regular";
+	src: url("/public/font/Jua-Regular.woff") format("woff");
+}
+* {
+	font-family: "Jua-Regular";
+}
+
+body {
+	padding: 50px;
+}
+
+footer {
+	padding:20px;
+	text-align: center;
+}
+
+span {
+	padding: 5px;
+}
 
 #container {
 	width: 500px;
@@ -6,6 +26,7 @@
 	float: left;
 	margin: 15px 35px;
 }
+
 #local_weather {
     background-color: #444444;
     border-radius: 5px;
@@ -40,4 +61,21 @@
 	cursor: pointer;
 	font-size: 12px;
 	fill: #fff;
+}
+.weather_now{
+	display: flex;
+	font-size: xx-large;
+}
+
+.weather_today{
+	display: flex;
+	align-items: center;
+}
+
+.weather_today_box {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	font-size: large;
+	margin: auto;
 }

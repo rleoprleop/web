@@ -3,7 +3,7 @@
 
 <head>
   <title>
-    <%= section1 %>
+    오늘의 날씨
   </title>
   <meta charset="UTF-8">
   <link rel='stylesheet' href='/public/stylesheets/style.css' />
@@ -14,13 +14,104 @@
 </head>
 
 <body>
-  <h1>
-    <%= section1 %>
-  </h1>
-  <p>Welcome to <%= section1 %>
-  </p>
-  <div id="container"></div>
+  <div>
+    <% if(!section2 && !section3){ %>
+      <h1>
+        <%= section1 %>의 날씨는?
+      </h1>
+      <% } else if(!section3){ %>
+        <h1>
+          <%= section1 %>
+            <%= section2 %>의 날씨는?
+        </h1>
+        <% } else{ %>
+          <h1>
+            <%= section1 %>
+              <%= section2 %>
+                <%= section3 %>의 날씨는?
+          </h1>
+          <% } %>
+  </div>
+  <div class="weather_now">
+    <div id="container"></div>
+    <div class="weather_now_box">
+      <div>
+        <% if (dataing[0].obsrValue==0) { %>
+          <img src="" alt="맑음" width="50" height="50">
+          <% } else if (dataing[0].obsrValue==1) { %>
+            <img src="" alt="비" width="50" height="50">
+            <% } else if (dataing[0].obsrValue==2) { %>
+              <img src="" alt="비/눈" width="50" height="50">
+              <% } else if (dataing[0].obsrValue==3) { %>
+                <img src="" alt="눈" width="50" height="50">
+                <% } else if (dataing[0].obsrValue==5) { %>
+                  <img src="" alt="빗방울" width="50" height="50">
+                  <% } else if (dataing[0].obsrValue==6) { %>
+                    <img src="" alt="빗방울,눈날림" width="50" height="50">
+                    <% } else if (dataing[0].obsrValue==7) { %>
+                      <img src="" alt="눈날림" width="50" height="50">
+                      <% } else { %>
+                        <span>api받기 실패</span>
+                        <% } %>
+
+      </div>
+      <span>
+        <%= dataing[3].obsrValue %>°
+      </span>
+      <div>
+        습도: <%= dataing[1].obsrValue %>%
+      </div>
+      <div>
+        강수량: <%= dataing[2].obsrValue %>mm
+      </div>
+    </div>
+  </div>
+  </div>
   <div id="local_weather"></div>
+  <div>
+  </div>
+  <div class="weather_today">
+    <% for (let i=0; i<data.length; i++) { %>
+      <div class="weather_today_box">
+        <% if (data[i][0].fcstValue==0) { %>
+          <% if (data[i][1].fcstValue==1) { %>
+            <img src="" alt="맑음" width="50" height="50">
+          <% } else if (data[i][1].fcstValue==3) { %>
+            <img src="" alt="구름 많음" width="50" height="50">
+          <% } else if (data[i][1].fcstValue==4) { %>
+            <img src="" alt="흐림" width="50" height="50">
+          <% } else { %>
+            <span>api받기 실패</span>
+          <% } %>
+        <% } else if (data[i][0].fcstValue==1) { %>
+          <img src="" alt="비" width="50" height="50">
+        <% } else if (data[i][0].fcstValue==2) { %>
+          <img src="" alt="비/눈" width="50" height="50">
+        <% } else if (data[i][0].fcstValue==3) { %>
+          <img src="" alt="눈" width="50" height="50">
+        <% } else if (data[i][0].fcstValue==5) { %>
+          <img src="" alt="빗방울" width="50" height="50">
+        <% } else if (data[i][0].fcstValue==6) { %>
+          <img src="" alt="빗방울,눈날림" width="50" height="50">
+        <% } else if (data[i][0].fcstValue==7) { %>
+          <img src="" alt="눈날림" width="50" height="50">
+        <% } else { %>
+          <span>api받기 실패</span>
+        <% } %>
+        <span>
+          <%= data[i][2].fcstValue %>°
+        </span>
+        <span>
+          <%= data[i][0].fcstTime %>
+        </span>
+      </div>
+      <% } %>
+  </div>
 </body>
+<footer>
+  <strong>활용 API</strong>
+  <span>단기예보 조회서비스(2.0)</span>
+  <span>초단기실황조회, 초단기예보조회</span>
+</footer>
 
 </html>

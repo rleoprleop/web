@@ -87,7 +87,7 @@ class Weather {
 
 async function getApi(url) {
   const axios = require('axios');
-  const response=await axios({
+  const response = await axios({
     url: url
   })
   return response.data.response.body.items.item
@@ -108,6 +108,14 @@ router.get('/map', async function (req, res, next) {//get query로 section 1,2,3
   var section2 = req.query.section2
   var section3 = req.query.section3
 
+  if (Object.keys(req.query).length == 1) {
+    section2 = ""
+    section3 = ""
+  }
+  else if (Object.keys(req.query).length == 2) {
+    section3 = ""
+  }
+  console.log(req.query);
   var dataBuffer = fs.readFileSync('public/json/data.json')
   const dataJson = dataBuffer.toString()
   var wt = new Weather(section1, section2, section3)
@@ -115,6 +123,7 @@ router.get('/map', async function (req, res, next) {//get query로 section 1,2,3
   var x = posdata.sectionX
   var y = posdata.sectionY
   var arr = []
+  var arr2 = []
 
   for (var z = 0; z < 2; z++) {
     let today = wt.sToday(z + 1);
@@ -126,14 +135,30 @@ router.get('/map', async function (req, res, next) {//get query로 section 1,2,3
     console.log(url);
     arr[z] = await getApi(url)
   }
-  console.log(arr[0]);
-  res.render('index', { section1: section1, section2: section2, section3, section3 });
+
+  for (let i = 0; i < 6; i++) {
+    var harr = []
+
+    harr.push(arr[1][i + 6])//pty
+    harr.push(arr[1][i + 18])//sky
+    harr.push(arr[1][i + 24])//t1h
+    arr2.push(harr)
+  }
+  console.log(arr2[0]);
+  res.render('index', { section1: section1, section2: section2, section3: section3, dataing: arr[0], data: arr2 });
 })
 
 router.post('/map', function (req, res, next) {
-  var local = req.body.section1
-  console.log(local);
-  return res.redirect("/map/?section1=" + local.dataValues.section1 + "&section2=" + local.dataValues.section2 + "&section3=" + local.dataValues.section3);
+  var local = req.body
+  if (Object.keys(local).length == 1) {
+    console.log(local);
+    return res.redirect("/map/?section1=" + local.section1);
+  }
+  else if (Object.keys(local).length == 2) {
+    console.log(local);
+    return res.redirect("/map/?section1=" + local.section1 + "&section2=" + local.section2);
+  }
+  return res.redirect("/map/?section1=" + local.section1 + "&section2=" + local.section2 + "&section3=" + local.section3);
   //JSON.parse 한 데이터: object Object형태. index.ejs에서 title.section1로 데이터 받기 가능.
 });
 
@@ -147,10 +172,11 @@ request(options, function (err, response, body) {
   console.log(data.response);
 })*/
 /*
-{"baseDate":"20221209","baseTime":"2100","category":"PTY","nx":73,"ny":134,"obsrValue":"0"},
-{"baseDate":"20221209","baseTime":"2100","category":"REH","nx":73,"ny":134,"obsrValue":"92"},
-{"baseDate":"20221209","baseTime":"2100","category":"RN1","nx":73,"ny":134,"obsrValue":"0"},
-{"baseDate":"20221209","baseTime":"2100","category":"T1H","nx":73,"ny":134,"obsrValue":"-1.4"},
+{"baseDate":"20221209","baseTime":"2100","category":"PTY","nx":73,"ny":134,"obsrValue":"0"},  강수형태
+{"baseDate":"20221209","baseTime":"2100","category":"REH","nx":73,"ny":134,"obsrValue":"92"},  습도
+{"baseDate":"20221209","baseTime":"2100","category":"RN1","nx":73,"ny":134,"obsrValue":"0"},  1시간 강수량
+{"baseDate":"20221209","baseTime":"2100","category":"T1H","nx":73,"ny":134,"obsrValue":"-1.4"},  기온
+
 {"baseDate":"20221209","baseTime":"2100","category":"UUU","nx":73,"ny":134,"obsrValue":"-0.1"},
 {"baseDate":"20221209","baseTime":"2100","category":"VEC","nx":73,"ny":134,"obsrValue":"150"},
 {"baseDate":"20221209","baseTime":"2100","category":"VVV","nx":73,"ny":134,"obsrValue":"0.3"},
