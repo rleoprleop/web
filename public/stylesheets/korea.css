@@ -33,6 +33,7 @@ span {
     color: #ffffff;
     display: none;
     position: absolute;
+	padding: 2px;
 }
 
 .map-layer path {
@@ -59,7 +60,6 @@ span {
 
 .map-layer text {
 	cursor: pointer;
-	font-size: 12px;
 	fill: #fff;
 }
 .weather_now{
